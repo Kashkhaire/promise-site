@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Immortal Love ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
+body{background:black;color:white;overflow-x:hidden;}
+section{padding:80px 20px;text-align:center;}
+
+/* INTRO */
+.intro{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:3rem;
+font-family:Dancing Script;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+background:url('9.jpg') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+}
+
+.hero h1{
+font-family:Dancing Script;
+font-size:3rem;
+background:rgba(0,0,0,0.5);
+padding:15px;
+border-radius:10px;
+}
+
+/* TIMELINE */
+.timeline{background:#111;}
+
+/* CHAT */
+.chat{background:black;}
+.bubble{
+max-width:260px;
+padding:12px;
+border-radius:15px;
+margin:12px;
+}
+.left{background:#333;}
+.right{background:#ff4b6e;margin-left:auto;}
+
+/* FLIPBOOK */
+.flipbook{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+.flipbook img{
+width:200px;
+border-radius:10px;
+transition:0.5s;
+}
+.flipbook img:hover{
+transform:scale(1.2);
+}
+
+/* 3D WALL */
+.wall{
+height:500px;
+display:flex;
+justify-content:center;
+align-items:center;
+perspective:1200px;
+}
+
+.wall img{
+position:absolute;
+height:220px;
+width:160px;
+object-fit:cover;
+border-radius:15px;
+transition:1s;
+box-shadow:0 10px 20px rgba(0,0,0,0.5);
+}
+
+/* PROPOSAL */
+.proposal button{
+padding:15px 30px;
+border:none;
+background:#ff4b6e;
+color:white;
+border-radius:25px;
+font-size:1.2rem;
+cursor:pointer;
+}
+
+/* RING */
+.ring{
+font-size:80px;
+display:none;
+animation:pulse 1s infinite alternate;
+}
+@keyframes pulse{
+from{transform:scale(1);}
+to{transform:scale(1.2);}
+}
+
+/* MUSIC */
+.music{
+position:fixed;
+top:20px;
+right:20px;
+background:#ff4b6e;
+padding:10px;
+border-radius:50%;
+cursor:pointer;
+}
+
+/* HEARTS */
+.heart{
+position:fixed;
+bottom:-10px;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+@keyframes float{
+0%{transform:translateY(0);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="intro" id="intro">
+Our Immortal Love Story ❤️
+</div>
+
+<audio id="music" loop>
+<source src="music.mpeg">
+</audio>
+
+<div class="music" onclick="toggleMusic()">🎵</div>
+
+<div id="main" style="display:none">
+
+<section class="hero">
+<h1 id="heroText"></h1>
+</section>
+
+<section class="timeline">
+<h2>Our Timeline ❤️</h2>
+<p id="timelineText"></p>
+</section>
+
+<section class="chat" id="chatBox"></section>
+
+<section>
+<h2>Our Memories 📖</h2>
+<div class="flipbook" id="album"></div>
+</section>
+
+<section class="wall" id="wall"></section>
+
+<section class="proposal">
+<h2>Will You Stay With Me Forever?</h2>
+<br>
+<button onclick="proposal()">YES 💍</button>
+<div class="ring" id="ring">💍</div>
+</section>
+
+<section>
+<h2>Ending Credits 🎞️</h2>
+<p>Starring: You & Me ❤️</p>
+<p>Story: Our Destiny</p>
+<p>Forever Together</p>
+</section>
+
+</div>
+
+<canvas id="fireworks"></canvas>
+
+<script>
+
+/* INTRO */
+setTimeout(()=>{
+intro.style.display="none";
+main.style.display="block";
+music.play();
+typeHero();
+typeTimeline();
+startChat();
+loadAlbum();
+buildWall();
+},3500);
+
+/* HERO TEXT */
+let hero="Happy Promise Day My Forever Chota Cartoon...❤️";
+let hi=0;
+
+function typeHero(){
+if(hi<hero.length){
+heroText.innerHTML+=hero.charAt(hi);
+hi++;
+setTimeout(typeHero,80);
+}
+}
+
+/* TIMELINE */
+let timeline="From first hello to forever love ❤️";
+let ti=0;
+
+function typeTimeline(){
+if(ti<timeline.length){
+timelineText.innerHTML+=timeline.charAt(ti);
+ti++;
+setTimeout(typeTimeline,40);
+}
+}
+
+/* CHAT */
+let chat=[
+["left","Hi 😊"],
+["right","Hello ❤️"],
+["left","You changed my life"],
+["right","You are my forever 💕"]
+];
+
+function startChat(){
+chat.forEach((c,i)=>{
+setTimeout(()=>{
+let div=document.createElement("div");
+div.className="bubble "+c[0];
+div.innerText=c[1];
+chatBox.appendChild(div);
+},i*1500);
+});
+}
+
+/* IMAGE LIST */
+let images=[
+"1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg",
+"10.jpg","11.jpg","12.jpg","13.jpg","14.jpg","15.jpg"
+];
+
+/* ALBUM */
+function loadAlbum(){
+images.forEach(src=>{
+let img=document.createElement("img");
+img.src=src;
+album.appendChild(img);
+});
+}
+
+/* 3D WALL FIXED */
+function buildWall(){
+
+let wallImgs=[];
+
+images.forEach(src=>{
+let img=document.createElement("img");
+img.src=src;
+wall.appendChild(img);
+wallImgs.push(img);
+});
+
+let angle=0;
+
+/* Dynamic radius to prevent overlap */
+let radius = images.length * 40 + 200;
+
+/* Smooth cinematic rotation */
+setInterval(()=>{
+angle += 0.3;
+
+wallImgs.forEach((img,i)=>{
+img.style.transform =
+`rotateY(${angle + i*(360/images.length)}deg) translateZ(${radius}px)`;
+});
+
+},30);
+
+}
+
+/* PROPOSAL */
+function proposal(){
+ring.style.display="block";
+voiceLove();
+startFireworks();
+}
+
+/* VOICE */
+function voiceLove(){
+let msg=new SpeechSynthesisUtterance(
+"I promise to love you forever. You are my soulmate. Mine Chota Cartoon."
+);
+speechSynthesis.speak(msg);
+}
+
+/* FIREWORK */
+let canvas=document.getElementById("fireworks");
+let ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+function startFireworks(){
+for(let i=0;i<120;i++){
+setTimeout(()=>{
+ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`;
+ctx.beginPath();
+ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,5,0,Math.PI*2);
+ctx.fill();
+},i*30);
+}
+}
+
+/* MUSIC */
+function toggleMusic(){
+music.paused ? music.play() : music.pause();
+}
+
+/* HEARTS */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},300);
+
+</script>
+</body>
+</html>
